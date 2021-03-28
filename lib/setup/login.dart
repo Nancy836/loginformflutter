@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebaseauthentification/setup/home.dart';
 import 'package:flutter/material.dart';
 
 class LogIn extends StatefulWidget {
@@ -6,6 +8,8 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -16,7 +20,7 @@ class _LogInState extends State<LogIn> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFFE1F5FE),
-        appBar: AppBar(title: Text("Sign In")),
+        appBar: AppBar(title: Text("Login In")),
         body: Form(
             key: _formKey,
             child: Column(children: <Widget>[
@@ -64,17 +68,67 @@ class _LogInState extends State<LogIn> {
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: ElevatedButton(
-                        onPressed: () {
-                          print("Login Pressed");
-                          print(emailController.text);
-                          print(passwordController.text);
-                        },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
+                  onPressed: () {
+                    print("Login Pressed");
+                    print(emailController.text);
+                    print(passwordController.text);
+                    _loginandsave();
+                  },
+                  child: Text(
+                    'Login',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
               ),
             ])));
+  }
+
+  void _loginandsave() async {
+    print("Home");
+    dynamic result = await loginwithEmailandpass(
+        emailController.text, passwordController.text);
+    var user = await FirebaseAuth.instance.currentUser;
+    print(user.uid);
+
+    print(result);
+    if (result == true) {
+      print("Logged in successfully!");
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage(
+                    userid: user.uid,
+                  )));
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text(result.toString()),
+              actions: [
+                ElevatedButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+      setState(() => isLoading = false);
+    }
+  }
+
+  Future loginwithEmailandpass(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      print("Login succesfull");
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return e;
+    }
   }
 }

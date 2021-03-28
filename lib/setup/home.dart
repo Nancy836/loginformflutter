@@ -1,11 +1,50 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  final userid;
+  const HomePage({Key key, this.userid}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Text("This is the home page"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Break out room 2"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("Your Unique user id:"),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              widget.userid,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text("Break out room Members:"),
+            ListTile(
+              leading: CircleAvatar(),
+              title: Text("Ian Wanjohi"),
+            ),
+            ListTile(
+              leading: CircleAvatar(),
+              title: Text("Kelvin Wachira"),
+            ),
+            ListTile(
+              leading: CircleAvatar(),
+              title: Text("Nancy Umutoni"),
+            )
+          ],
+        ),
       ),
     );
   }

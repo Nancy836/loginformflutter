@@ -27,4 +27,13 @@ void main() {
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
   });
+
+  testWidgets("Flutter Widget Test", (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+    var textField = find.byType(TextField);
+    expect(textField, findsOneWidget);
+    await tester.enterText(textField, 'Nancy Umutono');
+    expect(find.text('Flutter Devs'), findsOneWidget);
+    print('Nancy Umutoni');
+  });
 }
