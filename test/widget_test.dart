@@ -10,6 +10,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:firebaseauthentification/main.dart';
 
+import '../lib/setup/login.dart';
+
+import '../lib/setup/signup_page.dart';
+
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
@@ -28,12 +32,41 @@ void main() {
     expect(find.text('1'), findsOneWidget);
   });
 
-  testWidgets("Flutter Widget Test", (WidgetTester tester) async {
+  testWidgets("adding input to textfield", (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
     var textField = find.byType(TextField);
     expect(textField, findsOneWidget);
-    await tester.enterText(textField, 'Nancy Umutono');
-    expect(find.text('Flutter Devs'), findsOneWidget);
+    await tester.enterText(textField, 'Nancy Umutoni');
+    expect(find.text('Nancy Umutoni'), findsOneWidget);
     print('Nancy Umutoni');
   });
+
+  testWidgets("pressing login button", (WidgetTester tester) async {
+    await tester.pumpWidget(LogIn());
+    // finding widget
+    final button = find.byType(ElevatedButton);
+    //tapping button
+    await tester.tap(button);
+    //rebuilding widget
+    await tester.pump();
+    //expect to find 
+    expect(find.text("Text"), findsOneWidget);
+
+  });
+  
+  testWidgets("pressing signup button", (WidgetTester tester) async {
+    await tester.pumpWidget(SignUp());
+    // finding widget
+    final button = find.byType(ElevatedButton);
+    //tapping button
+    await tester.tap(button);
+    //rebuilding widget
+    await tester.pump();
+    //expect to find 
+    expect(find.text("Text"), findsOneWidget);
+  });
+
 }
+
+
+
