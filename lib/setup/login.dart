@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebaseauthentification/pages/home.dart';
+import 'package:firebaseauthentification/setup/home.dart';
 import 'package:flutter/material.dart';
 
 class LogIn extends StatefulWidget {
@@ -27,6 +27,7 @@ class _LogInState extends State<LogIn> {
               Padding(padding: EdgeInsets.only(top: 40)),
               Padding(padding: EdgeInsets.only(top: 30)),
               Padding(padding: EdgeInsets.only(bottom: 30)),
+              //creating textform fields for login page
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: TextFormField(
@@ -85,21 +86,26 @@ class _LogInState extends State<LogIn> {
 
   void _loginandsave() async {
     print("Home");
+    // getting user uid
     dynamic result = await loginwithEmailandpass(
         emailController.text, passwordController.text);
     var user = await FirebaseAuth.instance.currentUser;
     print(user.uid);
 
     print(result);
+
+    // if login successful, print success message
     if (result == true) {
       print("Logged in successfully!");
       Navigator.push(
           context,
           MaterialPageRoute(
+            // navigating user to home page
               builder: (context) => HomePage(
                     userid: user.uid,
                   )));
-    } else {
+    }//if not, print error message
+     else {
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -119,12 +125,13 @@ class _LogInState extends State<LogIn> {
       setState(() => isLoading = false);
     }
   }
-
+  
+  //passing the user's email address and password
   Future loginwithEmailandpass(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      print("Login succesfull");
+      print("Login succesful");
       return true;
     } catch (e) {
       print(e.toString());
