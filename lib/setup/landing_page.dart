@@ -18,6 +18,7 @@ class _LandingPageState extends State<LandingPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // displaying welcome message
             Text(
               "Welcome to Breakout Room 2 Application",
               style: TextStyle(fontSize: 20),
@@ -25,6 +26,7 @@ class _LandingPageState extends State<LandingPage> {
             SizedBox(
               height: 100,
             ),
+            //button leading to signup page
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
@@ -40,6 +42,7 @@ class _LandingPageState extends State<LandingPage> {
             SizedBox(
               height: 30,
             ),
+            // button leading to login page
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
@@ -58,3 +61,4 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 }
+
