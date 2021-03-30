@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LandingPage(),
+      home: LandingPage(),  // Navigate to the landing page to either log in or create an account
     );
   }
 }

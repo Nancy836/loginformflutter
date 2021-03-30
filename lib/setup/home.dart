@@ -8,6 +8,9 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+
+// a class with  three list view itsm if the name of each grou memeber alphabetically  
+// also displayes the user ud ... 
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {

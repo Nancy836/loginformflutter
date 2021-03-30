@@ -213,6 +213,8 @@ class _SignUpState extends State<SignUp> {
         ));
   }
 
+
+// Create account witht he details provided 
   Future registerToFb(String email, String name, String password) async {
     try {
       UserCredential results = await _auth.createUserWithEmailAndPassword(
